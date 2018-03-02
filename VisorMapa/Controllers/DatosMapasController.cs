@@ -25,9 +25,9 @@ namespace VisorMapa.Controllers
        //Deshabilitar cors para este metodo [DisableCorsAttribute]
         public IHttpActionResult GetDatosMapa()
         {
-            var MyUrl = Url.ToString();
-            int a = db.DatosMapa.Count(x => x.IdMapa != null);
-            if (a < 1 )
+            int count = db.DatosMapa.Count(x => x.IdMapa != null);
+
+            if (count < 1 )
             {
                 return StatusCode(HttpStatusCode.NoContent);
             }

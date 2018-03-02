@@ -49,8 +49,27 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 Datos Mapa
+                                <div class="pull-right">
+                                    <a href="index.html" class="btn-default btn-sm" style="text-decoration:none;">Ver todos</a>
+                                </div>
                             </div>
                             <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="col-lg-4 pull-right">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="buscarMapa" list="listMapa" placeholder="Buscar mapa" title="Buscar mapa" required>
+                                                <datalist id="listMapa"></datalist>
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" onclick="searchMapa();">Buscar</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        &nbsp;
+                                    </div>
+                                </div>
                                 <div id="objeto" class="table table-responsive">
                                     <table class="table table-bordered" id="table-content">
                                         <thead>

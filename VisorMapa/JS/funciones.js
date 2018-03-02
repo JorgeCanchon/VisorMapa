@@ -38,7 +38,7 @@ function initMap() {
         center: { lat: 4.710988599999999, lng:  -74.072092 },
         zoom:12,
         mapTypeControl: false,
-        streetViewControl:false
+        streetViewControl:true
     });
     //Creación marca
     marker = new google.maps.Marker({
@@ -157,7 +157,7 @@ function initMap() {
             });
         }
     });
-    //
+    //evento de arrastre
     google.maps.event.addListener(marker,'dragend',function(event) {
         $("#lat").val(event.latLng.lat());
         $("#lng").val(event.latLng.lng());
@@ -486,6 +486,36 @@ function search(){
    
 }
 /**
+*
+*/
+async function searchMapa(){
+
+    let data = await GetDatos();
+    let buscar = $('#buscarMapa').val();
+
+    if(data != null){
+
+        let array = data.filter( (x) => {
+            if(x.Nombre == buscar){
+                return x;
+            }
+        });
+
+        limpiarTabla();
+
+        if(array.length != 0){
+            for(var i in  array){
+                $('#table-content').append(`<tr><td>${array[i].IdMapa}</td><td>${array[i].Nombre}</td><td>${array[i].Descripcion}</td><td>${array[i].Lat}</td><td>${array[i].Lng}</td><td>${array[i].Direccion}</td><td>${array[i].Radio}</td><td>${array[i].FechaCreacion}</td><td><button type="button" class="btn btn-danger" id="${array[i].IdMapa}" onclick="EliminarMapa(this.id)"><i class="fa fa-trash-o"></i></button><button id="${array[i].IdMapa}" onclick="CargarMapa(this.id)" class="btn btn-warning"><i class="fa fa-edit"></i></button></td></tr>`);
+            }
+        }else{
+            $('#table-content').append(`<tr class="alert alert-warning"><td colspan="10" align="center">No hay coincidencias</td></tr>`);
+        }
+
+    }else{
+        alert('No hay datos disponibles');
+    }
+}
+/**
 * Muestra los datos existentes en la base de datos
 * consumiendo el WEB API
 */
@@ -502,6 +532,7 @@ function MostrarDatos(){
         }    
         document.getElementById('loader').setAttribute('hidden', 'true');
     })
+   listMapa();
 }
 /**
 * Obtiene los datos del WB API por medio de GET
@@ -840,6 +871,26 @@ reader.onload = function(event){
 }
 reader.readAsDataURL(file);
 }
+
+/**
+*
+*/
+function limpiarTabla() {
+    $('#table-content tbody tr').each(function(){ this.remove(); });
+}
+/**
+*
+*/
+async function listMapa(){
+    let options = '';
+    let data = await GetDatos();
+
+    if(data != null){
+        for(let i in data)
+            options += '<option value="'+data[i].Nombre+'" />';
+        $('#listMapa').html(options);
+    }
+} 
 /*
 *traductor
 function cargaHTML(urlPage,id){
