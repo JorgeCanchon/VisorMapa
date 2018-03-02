@@ -15,7 +15,7 @@ using VisorMapa.Models;
 namespace VisorMapa.Controllers
 {
     //Habilita cors
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+   // [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class DatosMapasController : ApiController
     {
         private Entities db = new Entities();
@@ -90,9 +90,9 @@ namespace VisorMapa.Controllers
             {
                 string geo = string.Format("POINT({1} {0})", datosMapa.LngCircle.ToString().Replace(',', '.'), datosMapa.LatCircle.ToString().Replace(',', '.'));
 
-                datosMapa.Geographic = System.Data.Entity.Spatial.DbGeography.FromText(geo,4326);
+                datosMapa.Geographic = System.Data.Entity.Spatial.DbGeography.FromText(geo, 4326);
 
-                db.InsertarMapa(datosMapa.Nombre, datosMapa.Descripcion, datosMapa.Lat, datosMapa.Lng, datosMapa.Radio, datosMapa.Direccion, datosMapa.Geographic);
+                db.InsertarMapa(datosMapa.Nombre, datosMapa.Descripcion, datosMapa.Lat, datosMapa.Lng, datosMapa.Radio, datosMapa.Direccion, datosMapa.Geographic);//.Buffer(1));
             }
             catch (Exception e)
             {
