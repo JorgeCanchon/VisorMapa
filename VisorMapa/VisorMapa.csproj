@@ -112,36 +112,45 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DatosMapa.cs">
-      <DependentUpon>ModelMapa.tt</DependentUpon>
+      <DependentUpon>ModelData.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ModelMapa.Context.cs">
+    <Compile Include="Models\ModelData.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelMapa.Context.tt</DependentUpon>
+      <DependentUpon>ModelData.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ModelMapa.cs">
+    <Compile Include="Models\ModelData.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelMapa.tt</DependentUpon>
+      <DependentUpon>ModelData.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ModelMapa.Designer.cs">
+    <Compile Include="Models\ModelData.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelMapa.edmx</DependentUpon>
+      <DependentUpon>ModelData.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>ModelData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagrams_Result.cs">
+      <DependentUpon>ModelData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagrams.cs">
+      <DependentUpon>ModelData.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="JS\funciones.js" />
-    <Content Include="Models\ModelMapa.Context.tt">
+    <Content Include="Models\ModelData.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelMapa.edmx</DependentUpon>
-      <LastGenOutput>ModelMapa.Context.cs</LastGenOutput>
+      <DependentUpon>ModelData.edmx</DependentUpon>
+      <LastGenOutput>ModelData.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\ModelMapa.tt">
+    <Content Include="Models\ModelData.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelMapa.edmx</DependentUpon>
-      <LastGenOutput>ModelMapa.cs</LastGenOutput>
+      <DependentUpon>ModelData.edmx</DependentUpon>
+      <LastGenOutput>ModelData.cs</LastGenOutput>
     </Content>
     <Content Include="packages.config" />
   </ItemGroup>
@@ -155,12 +164,12 @@
     <Content Include="Web.Config">
       <SubType>Designer</SubType>
     </Content>
-    <EntityDeploy Include="Models\ModelMapa.edmx">
+    <EntityDeploy Include="Models\ModelData.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelMapa.Designer.cs</LastGenOutput>
+      <LastGenOutput>ModelData.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\ModelMapa.edmx.diagram">
-      <DependentUpon>ModelMapa.edmx</DependentUpon>
+    <Content Include="Models\ModelData.edmx.diagram">
+      <DependentUpon>ModelData.edmx</DependentUpon>
     </Content>
     <None Include="Web.Debug.Config">
       <DependentUpon>Web.Config</DependentUpon>

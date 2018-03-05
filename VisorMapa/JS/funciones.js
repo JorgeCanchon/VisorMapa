@@ -373,7 +373,7 @@ async function initMap_todos(){
                 InfoWindowCircle.setPosition({lat: lat_c, lng: lng_c});
                 InfoWindowCircle.open(map_t);
                 //Cambio zoom
-                map.setCenter({lat: lat_c, lng: lng_c});
+                map_t.setCenter({lat: lat_c, lng: lng_c});
                 map_t.setZoom(14);
 
                 marker_icon = marker_t; 

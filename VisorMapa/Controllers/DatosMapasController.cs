@@ -15,7 +15,7 @@ using VisorMapa.Models;
 namespace VisorMapa.Controllers
 {
     //Habilita cors
-   // [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class DatosMapasController : ApiController
     {
         private Entities db = new Entities();
@@ -25,6 +25,7 @@ namespace VisorMapa.Controllers
        //Deshabilitar cors para este metodo [DisableCorsAttribute]
         public IHttpActionResult GetDatosMapa()
         {
+            int a = db.DatosMapa.Count();
             int count = db.DatosMapa.Count(x => x.IdMapa != null);
 
             if (count < 1 )
@@ -63,9 +64,10 @@ namespace VisorMapa.Controllers
             }
             try
             {
-                string geo = string.Format("POINT({0} {1})", datosMapa.LatCircle.ToString().Replace(',', '.'), datosMapa.LngCircle.ToString().Replace(',', '.'));
+                string geo = string.Format("POINT({0} {1})", datosMapa.Lat.ToString().Replace(',', '.'), datosMapa.Lng.ToString().Replace(',', '.'));
 
-                datosMapa.Geographic = System.Data.Entity.Spatial.DbGeography.FromText(geo, 4326);
+                datosMapa.Geographic = System.Data.Entity.Spatial.DbGeography.FromText(geo, 4326);//3857
+
                 db.EditarMapa(id, datosMapa.Nombre, datosMapa.Descripcion, datosMapa.Lat, datosMapa.Lng, datosMapa.Radio, datosMapa.Direccion, datosMapa.Geographic);
             }
             catch (Exception)
@@ -88,9 +90,9 @@ namespace VisorMapa.Controllers
             }
             try
             {
-                string geo = string.Format("POINT({1} {0})", datosMapa.LngCircle.ToString().Replace(',', '.'), datosMapa.LatCircle.ToString().Replace(',', '.'));
+                string geo = string.Format("POINT({0} {1})", datosMapa.Lat.ToString().Replace(',', '.'), datosMapa.Lng.ToString().Replace(',', '.'));
 
-                datosMapa.Geographic = System.Data.Entity.Spatial.DbGeography.FromText(geo, 4326);
+                datosMapa.Geographic = System.Data.Entity.Spatial.DbGeography.FromText(geo, 4326);//3857
 
                 db.InsertarMapa(datosMapa.Nombre, datosMapa.Descripcion, datosMapa.Lat, datosMapa.Lng, datosMapa.Radio, datosMapa.Direccion, datosMapa.Geographic);//.Buffer(1));
             }

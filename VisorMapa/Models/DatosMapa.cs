@@ -19,11 +19,9 @@ namespace VisorMapa.Models
         public string Descripcion { get; set; }
         public double Lat { get; set; }
         public double Lng { get; set; }
-        public short Radio { get; set; }
+        public Nullable<short> Radio { get; set; }
         public string Direccion { get; set; }
         public System.Data.Entity.Spatial.DbGeography Geographic { get; set; }
         public System.DateTime FechaCreacion { get; set; }
-        public double LatCircle { get; set; }
-        public double LngCircle { get; set; }
     }
 }
