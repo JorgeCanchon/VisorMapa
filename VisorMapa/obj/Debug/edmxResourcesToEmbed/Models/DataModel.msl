@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="visorMapaModelStoreContainer" CdmEntityContainer="visorMapaEntities">
+    <EntitySetMapping Name="DatosMapa">
+      <EntityTypeMapping TypeName="visorMapaModel.DatosMapa">
+        <MappingFragment StoreEntitySet="DatosMapa">
+          <ScalarProperty Name="IdMapa" ColumnName="IdMapa" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Lat" ColumnName="Lat" />
+          <ScalarProperty Name="Lng" ColumnName="Lng" />
+          <ScalarProperty Name="Radio" ColumnName="Radio" />
+          <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+          <ScalarProperty Name="Geographic" ColumnName="Geographic" />
+          <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="EditarMapa" FunctionName="visorMapaModel.Store.EditarMapa" />
+    <FunctionImportMapping FunctionImportName="EliminarDatosMapa" FunctionName="visorMapaModel.Store.EliminarDatosMapa" />
+    <FunctionImportMapping FunctionImportName="InsertarMapa" FunctionName="visorMapaModel.Store.InsertarMapa" />
+  </EntityContainerMapping>
+</Mapping>

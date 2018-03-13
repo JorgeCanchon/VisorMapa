@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="visorMapaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="DatosMapa">
+    <Key>
+      <PropertyRef Name="IdMapa" />
+    </Key>
+    <Property Name="IdMapa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="300" Nullable="false" />
+    <Property Name="Lat" Type="float" Nullable="false" />
+    <Property Name="Lng" Type="float" Nullable="false" />
+    <Property Name="Radio" Type="smallint" Nullable="false" />
+    <Property Name="Direccion" Type="varchar(max)" Nullable="false" />
+    <Property Name="Geographic" Type="geography" Nullable="false" />
+    <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
+  </EntityType>
+  <Function Name="EditarMapa" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="nombre" Type="varchar" Mode="In" />
+    <Parameter Name="descripcion" Type="varchar" Mode="In" />
+    <Parameter Name="lat" Type="float" Mode="In" />
+    <Parameter Name="lng" Type="float" Mode="In" />
+    <Parameter Name="radio" Type="smallint" Mode="In" />
+    <Parameter Name="direccion" Type="varchar(max)" Mode="In" />
+    <Parameter Name="geographic" Type="geography" Mode="In" />
+  </Function>
+  <Function Name="EliminarDatosMapa" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="InsertarMapa" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Nombre" Type="varchar" Mode="In" />
+    <Parameter Name="Descripcion" Type="varchar" Mode="In" />
+    <Parameter Name="Lat" Type="float" Mode="In" />
+    <Parameter Name="Lng" Type="float" Mode="In" />
+    <Parameter Name="Radio" Type="smallint" Mode="In" />
+    <Parameter Name="Direccion" Type="varchar(max)" Mode="In" />
+    <Parameter Name="Geographic" Type="geography" Mode="In" />
+  </Function>
+  <EntityContainer Name="visorMapaModelStoreContainer">
+    <EntitySet Name="DatosMapa" EntityType="Self.DatosMapa" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

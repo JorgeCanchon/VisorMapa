@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MapaEntities" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="datosMapa">
+    <Key>
+      <PropertyRef Name="idMapa" />
+    </Key>
+    <Property Name="idMapa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Lat" Type="Double" Nullable="false" />
+    <Property Name="Lng" Type="Double" Nullable="false" />
+    <Property Name="Radio" Type="Double" Nullable="false" />
+    <Property Name="Direccion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Geographic" Type="Geography" Nullable="false" />
+    <Property Name="codObjeto" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="TipoObjeto" Relationship="Self.FK__datosMapa__codOb__24927208" FromRole="datosMapa" ToRole="TipoObjeto" />
+  </EntityType>
+  <EntityType Name="TipoObjeto">
+    <Key>
+      <PropertyRef Name="IdObjeto" />
+    </Key>
+    <Property Name="IdObjeto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NombreObjeto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="datosMapas" Relationship="Self.FK__datosMapa__codOb__24927208" FromRole="TipoObjeto" ToRole="datosMapa" />
+  </EntityType>
+  <Association Name="FK__datosMapa__codOb__24927208">
+    <End Role="TipoObjeto" Type="Self.TipoObjeto" Multiplicity="1" />
+    <End Role="datosMapa" Type="Self.datosMapa" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoObjeto">
+        <PropertyRef Name="IdObjeto" />
+      </Principal>
+      <Dependent Role="datosMapa">
+        <PropertyRef Name="codObjeto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="visorMapaEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="datosMapas" EntityType="Self.datosMapa" />
+    <EntitySet Name="TipoObjetoes" EntityType="Self.TipoObjeto" />
+    <AssociationSet Name="FK__datosMapa__codOb__24927208" Association="Self.FK__datosMapa__codOb__24927208">
+      <End Role="TipoObjeto" EntitySet="TipoObjetoes" />
+      <End Role="datosMapa" EntitySet="datosMapas" />
+    </AssociationSet>
+    <FunctionImport Name="insertarMapa">
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="Descripcion" Mode="In" Type="String" />
+      <Parameter Name="Lat" Mode="In" Type="Double" />
+      <Parameter Name="Lng" Mode="In" Type="Double" />
+      <Parameter Name="Radio" Mode="In" Type="Double" />
+      <Parameter Name="Direccion" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MapaEntities.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="datosMapa">
+    <Key>
+      <PropertyRef Name="idMapa" />
+    </Key>
+    <Property Name="idMapa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="300" Nullable="false" />
+    <Property Name="Lat" Type="float" Nullable="false" />
+    <Property Name="Lng" Type="float" Nullable="false" />
+    <Property Name="Radio" Type="float" Nullable="false" />
+    <Property Name="Direccion" Type="text" Nullable="false" />
+    <Property Name="Geographic" Type="geography" Nullable="false" />
+    <Property Name="codObjeto" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TipoObjeto">
+    <Key>
+      <PropertyRef Name="IdObjeto" />
+    </Key>
+    <Property Name="IdObjeto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NombreObjeto" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__datosMapa__codOb__24927208">
+    <End Role="TipoObjeto" Type="Self.TipoObjeto" Multiplicity="1" />
+    <End Role="datosMapa" Type="Self.datosMapa" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoObjeto">
+        <PropertyRef Name="IdObjeto" />
+      </Principal>
+      <Dependent Role="datosMapa">
+        <PropertyRef Name="codObjeto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="insertarMapa" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Nombre" Type="varchar" Mode="In" />
+    <Parameter Name="Descripcion" Type="varchar" Mode="In" />
+    <Parameter Name="Lat" Type="float" Mode="In" />
+    <Parameter Name="Lng" Type="float" Mode="In" />
+    <Parameter Name="Radio" Type="float" Mode="In" />
+    <Parameter Name="Direccion" Type="text" Mode="In" />
+  </Function>
+  <EntityContainer Name="MapaEntitiesStoreContainer">
+    <EntitySet Name="datosMapa" EntityType="Self.datosMapa" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TipoObjeto" EntityType="Self.TipoObjeto" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__datosMapa__codOb__24927208" Association="Self.FK__datosMapa__codOb__24927208">
+      <End Role="TipoObjeto" EntitySet="TipoObjeto" />
+      <End Role="datosMapa" EntitySet="datosMapa" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MapaEntitiesStoreContainer" CdmEntityContainer="visorMapaEntities">
+    <EntitySetMapping Name="datosMapas">
+      <EntityTypeMapping TypeName="MapaEntities.datosMapa">
+        <MappingFragment StoreEntitySet="datosMapa">
+          <ScalarProperty Name="idMapa" ColumnName="idMapa" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Lat" ColumnName="Lat" />
+          <ScalarProperty Name="Lng" ColumnName="Lng" />
+          <ScalarProperty Name="Radio" ColumnName="Radio" />
+          <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+          <ScalarProperty Name="Geographic" ColumnName="Geographic" />
+          <ScalarProperty Name="codObjeto" ColumnName="codObjeto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TipoObjetoes">
+      <EntityTypeMapping TypeName="MapaEntities.TipoObjeto">
+        <MappingFragment StoreEntitySet="TipoObjeto">
+          <ScalarProperty Name="IdObjeto" ColumnName="IdObjeto" />
+          <ScalarProperty Name="NombreObjeto" ColumnName="NombreObjeto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="insertarMapa" FunctionName="MapaEntities.Store.insertarMapa" />
+  </EntityContainerMapping>
+</Mapping>

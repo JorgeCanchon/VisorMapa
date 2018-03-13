@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="visorMapaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="DatosMapa">
+    <Key>
+      <PropertyRef Name="IdMapa" />
+    </Key>
+    <Property Name="IdMapa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Lat" Type="Double" Nullable="false" />
+    <Property Name="Lng" Type="Double" Nullable="false" />
+    <Property Name="Radio" Type="Int16" Nullable="false" />
+    <Property Name="Direccion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Geographic" Type="Geography" Nullable="false" />
+    <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="DatosMapa" EntityType="Self.DatosMapa" />
+    <FunctionImport Name="EditarMapa">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="nombre" Mode="In" Type="String" />
+      <Parameter Name="descripcion" Mode="In" Type="String" />
+      <Parameter Name="lat" Mode="In" Type="Double" />
+      <Parameter Name="lng" Mode="In" Type="Double" />
+      <Parameter Name="radio" Mode="In" Type="Int16" />
+      <Parameter Name="direccion" Mode="In" Type="String" />
+      <Parameter Name="geographic" Mode="In" Type="Geography" />
+    </FunctionImport>
+    <FunctionImport Name="EliminarDatosMapa">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="InsertarMapa">
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="Descripcion" Mode="In" Type="String" />
+      <Parameter Name="Lat" Mode="In" Type="Double" />
+      <Parameter Name="Lng" Mode="In" Type="Double" />
+      <Parameter Name="Radio" Mode="In" Type="Int16" />
+      <Parameter Name="Direccion" Mode="In" Type="String" />
+      <Parameter Name="Geographic" Mode="In" Type="Geography" />
+    </FunctionImport>
+  </EntityContainer>
+</Schema>
