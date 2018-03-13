@@ -652,9 +652,9 @@ async function EliminarMapa(id){
                         method: "DELETE"
                     }
 
-            let urlEliminar=`${url}/${id}`;
+            let urlEliminar=`services/DeleteDatosMapa/${id}`;
 
-            const response = await fetch(urlEliminar,config).then(estado);
+            const response = await fetch(urlEliminar).then(estado);
             
             alert('Dato eliminado con exito');
             location.reload();
@@ -823,11 +823,11 @@ async function UpdateMapa(){
             { 
                 headers:
                     {
-                        //'Access-Control-Allow-Origin':'*',
+                        'Access-Control-Allow-Origin':'*',
                         'Accept': 'application/json',
                         'Content-Type': 'application/json'
                     },
-                //mode: 'cors',
+                mode: 'cors',
                 method: "PUT",
                 body: JSON.stringify(data)
             }

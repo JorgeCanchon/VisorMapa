@@ -142,6 +142,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="JS\funciones.js" />
+    <Content Include="Mapa\agregar.html" />
+    <Content Include="Mapa\dist\css\bootstrap.min.css" />
+    <Content Include="Mapa\dist\css\estilos.css" />
+    <Content Include="Mapa\dist\css\sb-admin-2.css" />
+    <Content Include="Mapa\dist\css\sb-admin-2.min.css" />
+    <Content Include="Mapa\dist\js\sb-admin-2.js" />
+    <Content Include="Mapa\dist\js\sb-admin-2.min.js" />
+    <Content Include="Mapa\index.html" />
+    <Content Include="Mapa\JS\funciones.js" />
+    <Content Include="Mapa\menu.html" />
+    <Content Include="Mapa\todos.html" />
     <Content Include="Models\ModelData.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModelData.edmx</DependentUpon>
@@ -152,7 +163,9 @@
       <DependentUpon>ModelData.edmx</DependentUpon>
       <LastGenOutput>ModelData.cs</LastGenOutput>
     </Content>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -171,6 +184,8 @@
     <Content Include="Models\ModelData.edmx.diagram">
       <DependentUpon>ModelData.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\visormapa - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\visormapa - Web Deploy.pubxml" />
     <None Include="Web.Debug.Config">
       <DependentUpon>Web.Config</DependentUpon>
     </None>
