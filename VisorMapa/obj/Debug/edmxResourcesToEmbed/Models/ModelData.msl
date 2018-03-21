@@ -54,5 +54,23 @@
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="visorMapaModel.Store.sp_renamediagram" />
     <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="visorMapaModel.Store.sp_upgraddiagrams" />
+    <EntitySetMapping Name="DatosMapaMovils">
+      <EntityTypeMapping TypeName="visorMapaModel.DatosMapaMovil">
+        <MappingFragment StoreEntitySet="DatosMapaMovil">
+          <ScalarProperty Name="Geozona" ColumnName="Geozona" />
+          <ScalarProperty Name="TipoGeozona" ColumnName="TipoGeozona" />
+          <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+          <ScalarProperty Name="Radio" ColumnName="Radio" />
+          <ScalarProperty Name="Lng" ColumnName="Lng" />
+          <ScalarProperty Name="Lat" ColumnName="Lat" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="IdMapaMovil" ColumnName="IdMapaMovil" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="AgregarMapaMovil" FunctionName="visorMapaModel.Store.AgregarMapaMovil" />
+    <FunctionImportMapping FunctionImportName="EditarMapaMovil" FunctionName="visorMapaModel.Store.EditarMapaMovil" />
+    <FunctionImportMapping FunctionImportName="EliminarMapaMovil" FunctionName="visorMapaModel.Store.EliminarMapaMovil" />
   </EntityContainerMapping>
 </Mapping>

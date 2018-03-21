@@ -7,6 +7,7 @@
       <Diagram DiagramId="d4c302c29bba401590b47f2d505179c1" Name="Diagram1">
         <EntityTypeShape EntityType="visorMapaModel.DatosMapa" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="visorMapaModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="visorMapaModel.DatosMapaMovil" Width="1.5" PointX="3.375" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

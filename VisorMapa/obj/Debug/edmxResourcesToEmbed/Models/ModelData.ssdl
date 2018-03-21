@@ -14,6 +14,20 @@
     <Property Name="Geographic" Type="geography" Nullable="false" />
     <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
   </EntityType>
+  <EntityType Name="DatosMapaMovil">
+    <Key>
+      <PropertyRef Name="IdMapaMovil" />
+    </Key>
+    <Property Name="IdMapaMovil" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="300" Nullable="false" />
+    <Property Name="Lat" Type="float" Nullable="false" />
+    <Property Name="Lng" Type="float" Nullable="false" />
+    <Property Name="Radio" Type="smallint" />
+    <Property Name="Geozona" Type="geography" Nullable="false" />
+    <Property Name="TipoGeozona" Type="smallint" Nullable="false" />
+    <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
+  </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
       <PropertyRef Name="diagram_id" />
@@ -24,6 +38,15 @@
     <Property Name="version" Type="int" />
     <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
+  <Function Name="AgregarMapaMovil" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="nombre" Type="varchar" Mode="In" />
+    <Parameter Name="descripcion" Type="varchar" Mode="In" />
+    <Parameter Name="lat" Type="float" Mode="In" />
+    <Parameter Name="lng" Type="float" Mode="In" />
+    <Parameter Name="radio" Type="smallint" Mode="In" />
+    <Parameter Name="geozona" Type="geography" Mode="In" />
+    <Parameter Name="tipoGeozona" Type="smallint" Mode="In" />
+  </Function>
   <Function Name="EditarMapa" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
     <Parameter Name="nombre" Type="varchar" Mode="In" />
@@ -34,8 +57,21 @@
     <Parameter Name="direccion" Type="varchar(max)" Mode="In" />
     <Parameter Name="geographic" Type="geography" Mode="In" />
   </Function>
+  <Function Name="EditarMapaMovil" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="nombre" Type="varchar" Mode="In" />
+    <Parameter Name="descripcion" Type="varchar" Mode="In" />
+    <Parameter Name="lat" Type="float" Mode="In" />
+    <Parameter Name="lng" Type="float" Mode="In" />
+    <Parameter Name="radio" Type="smallint" Mode="In" />
+    <Parameter Name="geozona" Type="geography" Mode="In" />
+    <Parameter Name="tipoGeozona" Type="smallint" Mode="In" />
+  </Function>
   <Function Name="EliminarDatosMapa" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="EliminarMapaMovil" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
   </Function>
   <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
   <Function Name="InsertarMapa" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -79,6 +115,7 @@
   <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="visorMapaModelStoreContainer">
     <EntitySet Name="DatosMapa" EntityType="Self.DatosMapa" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DatosMapaMovil" EntityType="Self.DatosMapaMovil" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
   </EntityContainer>
 </Schema>

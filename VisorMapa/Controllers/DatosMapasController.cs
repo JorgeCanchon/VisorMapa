@@ -19,7 +19,7 @@ namespace VisorMapa.Controllers
     public class DatosMapasController : ApiController
     {
         private Entities db = new Entities();
-
+        #region DatosMapa
         // GET: api/DatosMapas
         [HttpGet]
        //Deshabilitar cors para este metodo [DisableCorsAttribute]
@@ -35,7 +35,6 @@ namespace VisorMapa.Controllers
             return Json(db.DatosMapa);
         }
 
-        // GET: api/DatosMapas/5
         [HttpGet]
         public async Task<IHttpActionResult> GetDatosMapa(int id)
         {
@@ -121,10 +120,104 @@ namespace VisorMapa.Controllers
             {
                 return StatusCode(HttpStatusCode.InternalServerError);
             }
-            
+
             return StatusCode(HttpStatusCode.OK);
         }
+        #endregion
+        #region DatosMapaMovil
+        [HttpGet]
+        public IHttpActionResult GetDatosMovil()
+        {
+            int a = db.DatosMapaMovils.Count();
+            int count = db.DatosMapaMovils.Count(x => x.IdMapaMovil != null);
+            if (count < 1)
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+            return Json(db.DatosMapaMovils);
+        }
+        [HttpGet]
+        public async Task<IHttpActionResult> GetDatosMovil(int id)
+        {
+            DatosMapaMovil datosMapa = await db.DatosMapaMovils.FindAsync(id);
+            if (datosMapa == null)
+            {
+                return NotFound();
+            }
+            return Json(datosMapa);
+        }
+        [HttpPost]
+        public IHttpActionResult PostDatosMovil(DatosMapaMovil datosMapa)
+        {
+            if (!ModelState.IsValid)
+            {
+                return StatusCode(HttpStatusCode.BadRequest);
+            }
+            try
+            {
+                string geo = string.Format("POINT({0} {1})", datosMapa.Lat.ToString().Replace(',', '.'), datosMapa.Lng.ToString().Replace(',', '.'));
 
+                datosMapa.Geozona = System.Data.Entity.Spatial.DbGeography.FromText(geo, 4326);//3857
+
+                db.AgregarMapaMovil(datosMapa.Nombre, datosMapa.Descripcion, datosMapa.Lat, datosMapa.Lng, datosMapa.Radio, datosMapa.Geozona,datosMapa.TipoGeozona);//.Buffer(1));
+            }
+            catch (Exception)
+            {
+                return StatusCode(HttpStatusCode.InternalServerError);
+            }
+
+            return StatusCode(HttpStatusCode.Created);
+        }
+        [HttpDelete]
+        public IHttpActionResult DeleteDatosMovil(int id)
+        {
+            DatosMapaMovil datosMapa = db.DatosMapaMovils.Find(id);
+            if (datosMapa == null)
+            {
+                return StatusCode(HttpStatusCode.Found);
+            }
+            try
+            {
+                db.EliminarMapaMovil(id);
+            }
+            catch (Exception)
+            {
+                return StatusCode(HttpStatusCode.InternalServerError);
+            }
+
+            return StatusCode(HttpStatusCode.OK);
+        }
+        [HttpPut]
+        public IHttpActionResult PutDatosMovil(int id, DatosMapaMovil datosMapa)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return StatusCode(HttpStatusCode.BadRequest);
+            }
+
+            if (id != datosMapa.IdMapaMovil)
+            {
+                return StatusCode(HttpStatusCode.BadRequest);
+            }
+            try
+            {
+                string geo = string.Format("POINT({0} {1})", datosMapa.Lat.ToString().Replace(',', '.'), datosMapa.Lng.ToString().Replace(',', '.'));
+
+                datosMapa.Geozona = System.Data.Entity.Spatial.DbGeography.FromText(geo, 4326);//3857
+
+                db.EditarMapaMovil(id, datosMapa.Nombre, datosMapa.Descripcion, datosMapa.Lat, datosMapa.Lng, datosMapa.Radio, datosMapa.Geozona,datosMapa.TipoGeozona);
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(HttpStatusCode.InternalServerError);
+            }
+
+
+            return StatusCode(HttpStatusCode.OK);
+        }
+        #endregion
         protected override void Dispose(bool disposing)
         {
             if (disposing)

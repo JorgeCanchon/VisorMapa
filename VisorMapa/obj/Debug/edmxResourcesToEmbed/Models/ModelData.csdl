@@ -79,6 +79,29 @@
       <Parameter Name="new_diagramname" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="sp_upgraddiagrams" />
+    <EntitySet Name="DatosMapaMovils" EntityType="visorMapaModel.DatosMapaMovil" />
+    <FunctionImport Name="AgregarMapaMovil">
+      <Parameter Name="nombre" Mode="In" Type="String" />
+      <Parameter Name="descripcion" Mode="In" Type="String" />
+      <Parameter Name="lat" Mode="In" Type="Double" />
+      <Parameter Name="lng" Mode="In" Type="Double" />
+      <Parameter Name="radio" Mode="In" Type="Int16" />
+      <Parameter Name="geozona" Mode="In" Type="Geography" />
+      <Parameter Name="tipoGeozona" Mode="In" Type="Int16" />
+    </FunctionImport>
+    <FunctionImport Name="EditarMapaMovil">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="nombre" Mode="In" Type="String" />
+      <Parameter Name="descripcion" Mode="In" Type="String" />
+      <Parameter Name="lat" Mode="In" Type="Double" />
+      <Parameter Name="lng" Mode="In" Type="Double" />
+      <Parameter Name="radio" Mode="In" Type="Int16" />
+      <Parameter Name="geozona" Mode="In" Type="Geography" />
+      <Parameter Name="tipoGeozona" Mode="In" Type="Int16" />
+    </FunctionImport>
+    <FunctionImport Name="EliminarMapaMovil">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -91,4 +114,18 @@
     <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
     <Property Type="Int32" Name="OwnerID" Nullable="false" />
   </ComplexType>
+  <EntityType Name="DatosMapaMovil">
+    <Key>
+      <PropertyRef Name="IdMapaMovil" />
+    </Key>
+    <Property Name="IdMapaMovil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="Lat" Type="Double" Nullable="false" />
+    <Property Name="Lng" Type="Double" Nullable="false" />
+    <Property Name="Radio" Type="Int16" />
+    <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="TipoGeozona" Type="Int16" Nullable="false" />
+    <Property Name="Geozona" Type="Geography" Nullable="false" />
+  </EntityType>
 </Schema>
