@@ -141,6 +141,20 @@
           <Property Name="Geographic" Type="Geography" Nullable="false" />
           <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
+        <EntityType Name="DatosMapaMovil">
+          <Key>
+            <PropertyRef Name="IdMapaMovil" />
+          </Key>
+          <Property Name="IdMapaMovil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Lat" Type="Double" Nullable="false" />
+          <Property Name="Lng" Type="Double" Nullable="false" />
+          <Property Name="Radio" Type="Int16" />
+          <Property Name="Geozona" Type="Geography" Nullable="false" />
+          <Property Name="TipoGeozona" Type="Int16" Nullable="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -153,7 +167,17 @@
         </EntityType>
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="DatosMapa" EntityType="Self.DatosMapa" />
+          <EntitySet Name="DatosMapaMovil" EntityType="Self.DatosMapaMovil" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <FunctionImport Name="AgregarMapaMovil" ReturnType="Collection(Decimal)">
+            <Parameter Name="nombre" Mode="In" Type="String" />
+            <Parameter Name="descripcion" Mode="In" Type="String" />
+            <Parameter Name="lat" Mode="In" Type="Double" />
+            <Parameter Name="lng" Mode="In" Type="Double" />
+            <Parameter Name="radio" Mode="In" Type="Int16" />
+            <Parameter Name="geozona" Mode="In" Type="Geography" />
+            <Parameter Name="tipoGeozona" Mode="In" Type="Int16" />
+          </FunctionImport>
           <FunctionImport Name="EditarMapa">
             <Parameter Name="id" Mode="In" Type="Int32" />
             <Parameter Name="nombre" Mode="In" Type="String" />
@@ -164,8 +188,21 @@
             <Parameter Name="direccion" Mode="In" Type="String" />
             <Parameter Name="geographic" Mode="In" Type="Geography" />
           </FunctionImport>
+          <FunctionImport Name="EditarMapaMovil">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="nombre" Mode="In" Type="String" />
+            <Parameter Name="descripcion" Mode="In" Type="String" />
+            <Parameter Name="lat" Mode="In" Type="Double" />
+            <Parameter Name="lng" Mode="In" Type="Double" />
+            <Parameter Name="radio" Mode="In" Type="Int16" />
+            <Parameter Name="geozona" Mode="In" Type="Geography" />
+            <Parameter Name="tipoGeozona" Mode="In" Type="Int16" />
+          </FunctionImport>
           <FunctionImport Name="EliminarDatosMapa">
           <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="EliminarMapaMovil">
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="InsertarMapa">
             <Parameter Name="Nombre" Mode="In" Type="String" />
@@ -206,29 +243,6 @@
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
-          <EntitySet Name="DatosMapaMovils" EntityType="visorMapaModel.DatosMapaMovil" />
-          <FunctionImport Name="AgregarMapaMovil">
-            <Parameter Name="nombre" Mode="In" Type="String" />
-            <Parameter Name="descripcion" Mode="In" Type="String" />
-            <Parameter Name="lat" Mode="In" Type="Double" />
-            <Parameter Name="lng" Mode="In" Type="Double" />
-            <Parameter Name="radio" Mode="In" Type="Int16" />
-            <Parameter Name="geozona" Mode="In" Type="Geography" />
-            <Parameter Name="tipoGeozona" Mode="In" Type="Int16" />
-          </FunctionImport>
-          <FunctionImport Name="EditarMapaMovil">
-            <Parameter Name="id" Mode="In" Type="Int32" />
-            <Parameter Name="nombre" Mode="In" Type="String" />
-            <Parameter Name="descripcion" Mode="In" Type="String" />
-            <Parameter Name="lat" Mode="In" Type="Double" />
-            <Parameter Name="lng" Mode="In" Type="Double" />
-            <Parameter Name="radio" Mode="In" Type="Int16" />
-            <Parameter Name="geozona" Mode="In" Type="Geography" />
-            <Parameter Name="tipoGeozona" Mode="In" Type="Int16" />
-          </FunctionImport>
-          <FunctionImport Name="EliminarMapaMovil">
-            <Parameter Name="id" Mode="In" Type="Int32" />
-          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -241,20 +255,6 @@
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
-        <EntityType Name="DatosMapaMovil">
-          <Key>
-            <PropertyRef Name="IdMapaMovil" />
-          </Key>
-          <Property Name="IdMapaMovil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="Lat" Type="Double" Nullable="false" />
-          <Property Name="Lng" Type="Double" Nullable="false" />
-          <Property Name="Radio" Type="Int16" />
-          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="TipoGeozona" Type="Int16" Nullable="false" />
-          <Property Name="Geozona" Type="Geography" Nullable="false" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -276,6 +276,21 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="DatosMapaMovil">
+            <EntityTypeMapping TypeName="visorMapaModel.DatosMapaMovil">
+              <MappingFragment StoreEntitySet="DatosMapaMovil">
+                <ScalarProperty Name="IdMapaMovil" ColumnName="IdMapaMovil" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Lat" ColumnName="Lat" />
+                <ScalarProperty Name="Lng" ColumnName="Lng" />
+                <ScalarProperty Name="Radio" ColumnName="Radio" />
+                <ScalarProperty Name="Geozona" ColumnName="Geozona" />
+                <ScalarProperty Name="TipoGeozona" ColumnName="TipoGeozona" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="visorMapaModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
@@ -287,8 +302,11 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AgregarMapaMovil" FunctionName="visorMapaModel.Store.AgregarMapaMovil" />
           <FunctionImportMapping FunctionImportName="EditarMapa" FunctionName="visorMapaModel.Store.EditarMapa" />
+          <FunctionImportMapping FunctionImportName="EditarMapaMovil" FunctionName="visorMapaModel.Store.EditarMapaMovil" />
           <FunctionImportMapping FunctionImportName="EliminarDatosMapa" FunctionName="visorMapaModel.Store.EliminarDatosMapa" />
+          <FunctionImportMapping FunctionImportName="EliminarMapaMovil" FunctionName="visorMapaModel.Store.EliminarMapaMovil" />
           <FunctionImportMapping FunctionImportName="InsertarMapa" FunctionName="visorMapaModel.Store.InsertarMapa" />
           <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="visorMapaModel.Store.sp_alterdiagram" />
           <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="visorMapaModel.Store.sp_creatediagram" />
@@ -314,24 +332,6 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="visorMapaModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="visorMapaModel.Store.sp_upgraddiagrams" />
-          <EntitySetMapping Name="DatosMapaMovils">
-            <EntityTypeMapping TypeName="visorMapaModel.DatosMapaMovil">
-              <MappingFragment StoreEntitySet="DatosMapaMovil">
-                <ScalarProperty Name="Geozona" ColumnName="Geozona" />
-                <ScalarProperty Name="TipoGeozona" ColumnName="TipoGeozona" />
-                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
-                <ScalarProperty Name="Radio" ColumnName="Radio" />
-                <ScalarProperty Name="Lng" ColumnName="Lng" />
-                <ScalarProperty Name="Lat" ColumnName="Lat" />
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="IdMapaMovil" ColumnName="IdMapaMovil" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="AgregarMapaMovil" FunctionName="visorMapaModel.Store.AgregarMapaMovil" />
-          <FunctionImportMapping FunctionImportName="EditarMapaMovil" FunctionName="visorMapaModel.Store.EditarMapaMovil" />
-          <FunctionImportMapping FunctionImportName="EliminarMapaMovil" FunctionName="visorMapaModel.Store.EliminarMapaMovil" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -346,7 +346,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

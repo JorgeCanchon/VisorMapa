@@ -28,8 +28,41 @@ namespace VisorMapa.Models
         }
     
         public virtual DbSet<DatosMapa> DatosMapa { get; set; }
+        public virtual DbSet<DatosMapaMovil> DatosMapaMovil { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
-        public virtual DbSet<DatosMapaMovil> DatosMapaMovils { get; set; }
+    
+        public virtual ObjectResult<Nullable<decimal>> AgregarMapaMovil(string nombre, string descripcion, Nullable<double> lat, Nullable<double> lng, Nullable<short> radio, System.Data.Entity.Spatial.DbGeography geozona, Nullable<short> tipoGeozona)
+        {
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("nombre", nombre) :
+                new ObjectParameter("nombre", typeof(string));
+    
+            var descripcionParameter = descripcion != null ?
+                new ObjectParameter("descripcion", descripcion) :
+                new ObjectParameter("descripcion", typeof(string));
+    
+            var latParameter = lat.HasValue ?
+                new ObjectParameter("lat", lat) :
+                new ObjectParameter("lat", typeof(double));
+    
+            var lngParameter = lng.HasValue ?
+                new ObjectParameter("lng", lng) :
+                new ObjectParameter("lng", typeof(double));
+    
+            var radioParameter = radio.HasValue ?
+                new ObjectParameter("radio", radio) :
+                new ObjectParameter("radio", typeof(short));
+    
+            var geozonaParameter = geozona != null ?
+                new ObjectParameter("geozona", geozona) :
+                new ObjectParameter("geozona", typeof(System.Data.Entity.Spatial.DbGeography));
+    
+            var tipoGeozonaParameter = tipoGeozona.HasValue ?
+                new ObjectParameter("tipoGeozona", tipoGeozona) :
+                new ObjectParameter("tipoGeozona", typeof(short));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("AgregarMapaMovil", nombreParameter, descripcionParameter, latParameter, lngParameter, radioParameter, geozonaParameter, tipoGeozonaParameter);
+        }
     
         public virtual int EditarMapa(Nullable<int> id, string nombre, string descripcion, Nullable<double> lat, Nullable<double> lng, Nullable<short> radio, string direccion, System.Data.Entity.Spatial.DbGeography geographic)
         {
@@ -68,6 +101,43 @@ namespace VisorMapa.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("EditarMapa", idParameter, nombreParameter, descripcionParameter, latParameter, lngParameter, radioParameter, direccionParameter, geographicParameter);
         }
     
+        public virtual int EditarMapaMovil(Nullable<int> id, string nombre, string descripcion, Nullable<double> lat, Nullable<double> lng, Nullable<short> radio, System.Data.Entity.Spatial.DbGeography geozona, Nullable<short> tipoGeozona)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("nombre", nombre) :
+                new ObjectParameter("nombre", typeof(string));
+    
+            var descripcionParameter = descripcion != null ?
+                new ObjectParameter("descripcion", descripcion) :
+                new ObjectParameter("descripcion", typeof(string));
+    
+            var latParameter = lat.HasValue ?
+                new ObjectParameter("lat", lat) :
+                new ObjectParameter("lat", typeof(double));
+    
+            var lngParameter = lng.HasValue ?
+                new ObjectParameter("lng", lng) :
+                new ObjectParameter("lng", typeof(double));
+    
+            var radioParameter = radio.HasValue ?
+                new ObjectParameter("radio", radio) :
+                new ObjectParameter("radio", typeof(short));
+    
+            var geozonaParameter = geozona != null ?
+                new ObjectParameter("geozona", geozona) :
+                new ObjectParameter("geozona", typeof(System.Data.Entity.Spatial.DbGeography));
+    
+            var tipoGeozonaParameter = tipoGeozona.HasValue ?
+                new ObjectParameter("tipoGeozona", tipoGeozona) :
+                new ObjectParameter("tipoGeozona", typeof(short));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("EditarMapaMovil", idParameter, nombreParameter, descripcionParameter, latParameter, lngParameter, radioParameter, geozonaParameter, tipoGeozonaParameter);
+        }
+    
         public virtual int EliminarDatosMapa(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
@@ -75,6 +145,15 @@ namespace VisorMapa.Models
                 new ObjectParameter("Id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("EliminarDatosMapa", idParameter);
+        }
+    
+        public virtual int EliminarMapaMovil(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("EliminarMapaMovil", idParameter);
         }
     
         public virtual int InsertarMapa(string nombre, string descripcion, Nullable<double> lat, Nullable<double> lng, Nullable<short> radio, string direccion, System.Data.Entity.Spatial.DbGeography geographic)
@@ -211,85 +290,6 @@ namespace VisorMapa.Models
         public virtual int sp_upgraddiagrams()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
-        }
-    
-        public virtual int AgregarMapaMovil(string nombre, string descripcion, Nullable<double> lat, Nullable<double> lng, Nullable<short> radio, System.Data.Entity.Spatial.DbGeography geozona, Nullable<short> tipoGeozona)
-        {
-            var nombreParameter = nombre != null ?
-                new ObjectParameter("nombre", nombre) :
-                new ObjectParameter("nombre", typeof(string));
-    
-            var descripcionParameter = descripcion != null ?
-                new ObjectParameter("descripcion", descripcion) :
-                new ObjectParameter("descripcion", typeof(string));
-    
-            var latParameter = lat.HasValue ?
-                new ObjectParameter("lat", lat) :
-                new ObjectParameter("lat", typeof(double));
-    
-            var lngParameter = lng.HasValue ?
-                new ObjectParameter("lng", lng) :
-                new ObjectParameter("lng", typeof(double));
-    
-            var radioParameter = radio.HasValue ?
-                new ObjectParameter("radio", radio) :
-                new ObjectParameter("radio", typeof(short));
-    
-            var geozonaParameter = geozona != null ?
-                new ObjectParameter("geozona", geozona) :
-                new ObjectParameter("geozona", typeof(System.Data.Entity.Spatial.DbGeography));
-    
-            var tipoGeozonaParameter = tipoGeozona.HasValue ?
-                new ObjectParameter("tipoGeozona", tipoGeozona) :
-                new ObjectParameter("tipoGeozona", typeof(short));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AgregarMapaMovil", nombreParameter, descripcionParameter, latParameter, lngParameter, radioParameter, geozonaParameter, tipoGeozonaParameter);
-        }
-    
-        public virtual int EditarMapaMovil(Nullable<int> id, string nombre, string descripcion, Nullable<double> lat, Nullable<double> lng, Nullable<short> radio, System.Data.Entity.Spatial.DbGeography geozona, Nullable<short> tipoGeozona)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            var nombreParameter = nombre != null ?
-                new ObjectParameter("nombre", nombre) :
-                new ObjectParameter("nombre", typeof(string));
-    
-            var descripcionParameter = descripcion != null ?
-                new ObjectParameter("descripcion", descripcion) :
-                new ObjectParameter("descripcion", typeof(string));
-    
-            var latParameter = lat.HasValue ?
-                new ObjectParameter("lat", lat) :
-                new ObjectParameter("lat", typeof(double));
-    
-            var lngParameter = lng.HasValue ?
-                new ObjectParameter("lng", lng) :
-                new ObjectParameter("lng", typeof(double));
-    
-            var radioParameter = radio.HasValue ?
-                new ObjectParameter("radio", radio) :
-                new ObjectParameter("radio", typeof(short));
-    
-            var geozonaParameter = geozona != null ?
-                new ObjectParameter("geozona", geozona) :
-                new ObjectParameter("geozona", typeof(System.Data.Entity.Spatial.DbGeography));
-    
-            var tipoGeozonaParameter = tipoGeozona.HasValue ?
-                new ObjectParameter("tipoGeozona", tipoGeozona) :
-                new ObjectParameter("tipoGeozona", typeof(short));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("EditarMapaMovil", idParameter, nombreParameter, descripcionParameter, latParameter, lngParameter, radioParameter, geozonaParameter, tipoGeozonaParameter);
-        }
-    
-        public virtual int EliminarMapaMovil(Nullable<int> id)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("EliminarMapaMovil", idParameter);
         }
     }
 }

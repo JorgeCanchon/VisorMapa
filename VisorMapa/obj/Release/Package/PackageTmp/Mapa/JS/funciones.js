@@ -553,7 +553,7 @@ function MostrarDatos(){
 */
 async function GetDatos(){
     try {
-        const respuesta = await fetch(url).then(estado)
+        const respuesta = await fetch(url+'/GetDatosMapa').then(estado)
         /*
         if(!respuesta.status >= 200 && !respuesta.status < 300){
             throw Error(respuesta.statusText);
@@ -861,7 +861,12 @@ let file = e.target.files[0];
 let reader = new FileReader();
 reader.onload = function(event){
     _url=  event.target.result;
-    marker_icon.setIcon({url:_url});
+    marker_icon.setIcon({
+        url:_url,
+        size: new google.maps.Size(120, 132),
+        origin: new google.maps.Point(10, 10),
+        anchor: new google.maps.Point(10, 132)
+    });
 }
 reader.readAsDataURL(file);
 }

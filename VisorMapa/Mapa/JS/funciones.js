@@ -553,7 +553,7 @@ function MostrarDatos(){
 */
 async function GetDatos(){
     try {
-        const respuesta = await fetch(url).then(estado)
+        const respuesta = await fetch(url+'/GetDatosMapa').then(estado)
         /*
         if(!respuesta.status >= 200 && !respuesta.status < 300){
             throw Error(respuesta.statusText);

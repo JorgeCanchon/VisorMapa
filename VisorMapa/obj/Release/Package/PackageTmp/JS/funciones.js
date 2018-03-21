@@ -539,7 +539,7 @@ function MostrarDatos(){
 */
 async function GetDatos(){
     try {
-        const respuesta = await fetch(url).then(estado)
+        const respuesta = await fetch(url+'/GetDatosMapa').then(estado)
         /*
         if(!respuesta.status >= 200 && !respuesta.status < 300){
             throw Error(respuesta.statusText);
@@ -604,9 +604,6 @@ async function AgregarMapa() {
                 return;
             }
 
-        let str = geographic.split(',');
-        let LatCircle = str[0].substring(1, str[0].length);
-        let LngCircle = str[1].substring(0, str[0].length - 1);
 
         let data = {
             Nombre: nombre.trim(),
@@ -615,8 +612,6 @@ async function AgregarMapa() {
             Lng: lng,
             Radio: radio,
             Direccion: direccion,
-            LatCircle: LatCircle,
-            LngCircle: LngCircle
         }
 
         let config = 
@@ -652,9 +647,9 @@ async function EliminarMapa(id){
                         method: "DELETE"
                     }
 
-            let urlEliminar=`services/DeleteDatosMapa/${id}`;
+            let urlEliminar=`services/DatosMapas/DeleteDatosMapa/${id}`;
 
-            const response = await fetch(urlEliminar).then(estado);
+            const response = await fetch(urlEliminar,config).then(estado);
             
             alert('Dato eliminado con exito');
             location.reload();
@@ -726,7 +721,7 @@ async function CargarMapa(id){
 
     show('modificar','dashboard');
 
-    let urlEditar=`${url}/${id}`;
+    let urlEditar=`${url}/GetDatosMapa/${id}`;
 
     const data = await fetch(urlEditar)
         .then(estado)

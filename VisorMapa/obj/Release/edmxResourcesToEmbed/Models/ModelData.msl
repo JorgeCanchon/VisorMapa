@@ -16,6 +16,21 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="DatosMapaMovil">
+      <EntityTypeMapping TypeName="visorMapaModel.DatosMapaMovil">
+        <MappingFragment StoreEntitySet="DatosMapaMovil">
+          <ScalarProperty Name="IdMapaMovil" ColumnName="IdMapaMovil" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Lat" ColumnName="Lat" />
+          <ScalarProperty Name="Lng" ColumnName="Lng" />
+          <ScalarProperty Name="Radio" ColumnName="Radio" />
+          <ScalarProperty Name="Geozona" ColumnName="Geozona" />
+          <ScalarProperty Name="TipoGeozona" ColumnName="TipoGeozona" />
+          <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="sysdiagrams">
       <EntityTypeMapping TypeName="visorMapaModel.sysdiagrams">
         <MappingFragment StoreEntitySet="sysdiagrams">
@@ -27,8 +42,11 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="AgregarMapaMovil" FunctionName="visorMapaModel.Store.AgregarMapaMovil" />
     <FunctionImportMapping FunctionImportName="EditarMapa" FunctionName="visorMapaModel.Store.EditarMapa" />
+    <FunctionImportMapping FunctionImportName="EditarMapaMovil" FunctionName="visorMapaModel.Store.EditarMapaMovil" />
     <FunctionImportMapping FunctionImportName="EliminarDatosMapa" FunctionName="visorMapaModel.Store.EliminarDatosMapa" />
+    <FunctionImportMapping FunctionImportName="EliminarMapaMovil" FunctionName="visorMapaModel.Store.EliminarMapaMovil" />
     <FunctionImportMapping FunctionImportName="InsertarMapa" FunctionName="visorMapaModel.Store.InsertarMapa" />
     <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="visorMapaModel.Store.sp_alterdiagram" />
     <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="visorMapaModel.Store.sp_creatediagram" />

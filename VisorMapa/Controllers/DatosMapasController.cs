@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -128,18 +129,18 @@ namespace VisorMapa.Controllers
         [HttpGet]
         public IHttpActionResult GetDatosMovil()
         {
-            int a = db.DatosMapaMovils.Count();
-            int count = db.DatosMapaMovils.Count(x => x.IdMapaMovil != null);
+            int a = db.DatosMapaMovil.Count();
+            int count = db.DatosMapaMovil.Count(x => x.IdMapaMovil != null);
             if (count < 1)
             {
                 return StatusCode(HttpStatusCode.NoContent);
             }
-            return Json(db.DatosMapaMovils);
+            return Json(db.DatosMapaMovil);
         }
         [HttpGet]
         public async Task<IHttpActionResult> GetDatosMovil(int id)
         {
-            DatosMapaMovil datosMapa = await db.DatosMapaMovils.FindAsync(id);
+            DatosMapaMovil datosMapa = await db.DatosMapaMovil.FindAsync(id);
             if (datosMapa == null)
             {
                 return NotFound();
@@ -156,22 +157,33 @@ namespace VisorMapa.Controllers
             try
             {
                 string geo = string.Format("POINT({0} {1})", datosMapa.Lat.ToString().Replace(',', '.'), datosMapa.Lng.ToString().Replace(',', '.'));
-
                 datosMapa.Geozona = System.Data.Entity.Spatial.DbGeography.FromText(geo, 4326);//3857
 
-                db.AgregarMapaMovil(datosMapa.Nombre, datosMapa.Descripcion, datosMapa.Lat, datosMapa.Lng, datosMapa.Radio, datosMapa.Geozona,datosMapa.TipoGeozona);//.Buffer(1));
+                var listado = db.Database.SqlQuery<decimal>("AgregarMapaMovil @nombre,@descripcion,@lat,@lng,@radio,@tipoGeozona",
+                    new SqlParameter("@nombre",datosMapa.Nombre),
+                    new SqlParameter("@descripcion",datosMapa.Descripcion),
+                    new SqlParameter("@lat",datosMapa.Lat),
+                    new SqlParameter("@lng",datosMapa.Lng),
+                    new SqlParameter("@radio",datosMapa.Radio),
+                    //new SqlParameter("@geozona",datosMapa.Geozona),
+                    new SqlParameter("@tipoGeozona",datosMapa.TipoGeozona)
+                    ).FirstOrDefault();
+                return Json(listado);
+               // var a = listado.ToList();
+                /*
+                db.DatosMapaMovil.Add(datosMapa);
+                db.SaveChanges();*/
+                //var a = db.AgregarMapaMovil(datosMapa.Nombre, datosMapa.Descripcion, datosMapa.Lat, datosMapa.Lng, datosMapa.Radio, datosMapa.Geozona,datosMapa.TipoGeozona);//.Buffer(1));
             }
             catch (Exception)
             {
                 return StatusCode(HttpStatusCode.InternalServerError);
             }
-
-            return StatusCode(HttpStatusCode.Created);
         }
         [HttpDelete]
         public IHttpActionResult DeleteDatosMovil(int id)
         {
-            DatosMapaMovil datosMapa = db.DatosMapaMovils.Find(id);
+            DatosMapaMovil datosMapa = db.DatosMapaMovil.Find(id);
             if (datosMapa == null)
             {
                 return StatusCode(HttpStatusCode.Found);

@@ -21,7 +21,7 @@ namespace VisorMapa
                 routeTemplate: "services/{controller}/{Action}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
-            config.MessageHandlers.Add(new Handlers.ValidationHandle());
+           // config.MessageHandlers.Add(new Handlers.ValidationHandle());
         }
     }
 }
